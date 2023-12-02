@@ -17,8 +17,8 @@ public class ControllerGame {
         this.player2 = player2;
     }
 
-    public int inputCoordinate(String coordinate){
-        System.out.printf("Enter coordinates %s", coordinate);
+    public int inputCoordinate(String coordinate, Player player){
+        System.out.printf("%s, enter the %s coordinate: \n", player.getNAME(), coordinate);
         return scanner.nextInt();
     }
 
