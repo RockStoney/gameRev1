@@ -31,9 +31,15 @@ public class ControllerGame {
         }
     }
 
-    // Sets player's figure on the field. If it was unsuccessful !!!
+    // Sets player's figure on the field.
     public void movePlayer(int x, int y, Player player){
         field.setCellField(x, y, player.getFIGURE());
+
+    }
+
+    // Checks if the player's coordinate is correct.
+    public boolean isValidMove(int x, int y) {
+        return field.checkCoordinate(x) && field.checkCoordinate(y) && field.getCellField(x, y) == field.getDEFAULT_SYMBOL();
     }
 
     //

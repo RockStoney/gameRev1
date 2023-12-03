@@ -5,8 +5,6 @@ import game.models.Field;
 import game.models.Player;
 import game.view.View;
 
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
         Field field = new Field(3);
@@ -35,9 +33,19 @@ public class Main {
     }
 
     public static void showPlayerMove(ControllerGame controllerGame, Field field, Player player, View view){
-        int x = controllerGame.inputCoordinate("x", player);
-        int y = controllerGame.inputCoordinate("y", player);
-        controllerGame.movePlayer(x, y, player);
-        view.shoeField();
+        boolean validMove = false;
+
+        while (!validMove) {
+            int x = controllerGame.inputCoordinate("x", player);
+            int y = controllerGame.inputCoordinate("y", player);
+
+            if (controllerGame.isValidMove(x, y)) {
+                controllerGame.movePlayer(x, y, player);
+                view.shoeField();
+                validMove = true;
+            } else {
+                System.out.println("Invalid move. Please try again.");
+            }
+        }
     }
 }
