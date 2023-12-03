@@ -29,11 +29,11 @@ public class Field {
         }
         this.stateField = stateField;
     }
-    private boolean checkCoordinate (int coordinate){
-        if (coordinate >= getMIN_VALUE() && coordinate <= getMAX_VALUE()){
+    public boolean checkCoordinate (int coordinate){
+        if (coordinate >= getMIN_VALUE() && coordinate < getMAX_VALUE()){
             return true;
         } else {
-            System.out.println("Please, check a coordinate.");
+            System.out.println("Please, check a coordinate and try enter again");
             return false;
         }
     }

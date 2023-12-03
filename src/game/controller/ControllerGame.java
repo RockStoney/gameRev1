@@ -3,6 +3,7 @@ package game.controller;
 import game.models.Field;
 import game.models.Player;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ControllerGame {
@@ -17,9 +18,17 @@ public class ControllerGame {
         this.player2 = player2;
     }
 
-    public int inputCoordinate(String coordinate, Player player){
-        System.out.printf("%s, enter the %s coordinate: \n", player.getNAME(), coordinate);
-        return scanner.nextInt();
+    public int inputCoordinate(String coordinate, Player player) {
+        while (true) {
+            try {
+                System.out.printf("%s, enter the %s coordinate: ", player.getNAME(), coordinate);
+                return scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Characters cannot be entered");
+            } finally {
+                scanner.nextLine();
+            }
+        }
     }
 
     // Sets player's figure on the field. If it was unsuccessful !!!
@@ -57,8 +66,8 @@ public class ControllerGame {
     }
 
     private boolean checkHorizontal(Player player) {
-        int counter = 0;
         for (int i = 0; i < field.getSIZE_FIELD(); i++) {
+            int counter = 0;
             for (int j = 0; j < field.getSIZE_FIELD(); j++) {
                 if (field.getCellField(i, j) == player.getFIGURE()) {
                     counter++;
@@ -71,8 +80,8 @@ public class ControllerGame {
         return false;
     }
     private boolean checkVertical(Player player) {
-        int counter = 0;
         for (int i = 0; i < field.getSIZE_FIELD(); i++) {
+            int counter = 0;
             for (int j = 0; j < field.getSIZE_FIELD(); j++) {
                 if (field.getCellField(j, i) == player.getFIGURE()) {
                     counter++;
@@ -84,30 +93,33 @@ public class ControllerGame {
         }
         return false;
     }
-    private boolean checkDiagonal(Player player) {
+    private boolean checkDiagonal1(Player player) {
         int counter = 0;
         for (int i = 0; i < field.getSIZE_FIELD(); i++) {
             if (field.getCellField(i, i) == player.getFIGURE()){
                 counter++;
             }
         }
-        if (counter == field.getSIZE_FIELD()){
+        if (counter == field.getSIZE_FIELD()) {
             return true;
         }
-
-        counter = 0;
-
+        return false;
+    }
+    private boolean checkDiagonal2(Player player) {
+        int counter = 0;
         for (int i = field.getSIZE_FIELD() - 1; i >= 0; i--) {
             if (field.getCellField(i, field.getSIZE_FIELD() - 1 - i) == player.getFIGURE()){
                 counter++;
             }
         }
-        return counter == field.getSIZE_FIELD();
+        if (counter == field.getSIZE_FIELD()) {
+            return true;
+        }
+        return false;
     }
-
     //
     public boolean winnerPlayer(Player player) {
-        return checkHorizontal(player) || checkVertical(player) || checkDiagonal(player);
+        return checkHorizontal(player) || checkVertical(player) || checkDiagonal1(player) || checkDiagonal2(player);
     }
 
     //
@@ -117,6 +129,6 @@ public class ControllerGame {
         } else if (winnerPlayer((player2))) {
             return player2.getNAME();
         }
-        return "No Winner!!!";
+        return "No Winner. Try again.";
     }
 }

@@ -17,22 +17,26 @@ public class Main {
         view.shoeField();
 
         while (!controllerGame.endGame()){
-            showPlayerMove(controllerGame, player1,
-                    view, controllerGame.inputCoordinate("x", player1), controllerGame.inputCoordinate("y", player1));
-            if (controllerGame.winnerPlayer(player1)){
-                break;
-            }
+            showPlayerMove(controllerGame, field, player1, view);
+            if (controllerGame.winnerPlayer(player1) || controllerGame.endGame()){break;}
 
-            showPlayerMove(controllerGame, player2,
-                    view, controllerGame.inputCoordinate("x", player2), controllerGame.inputCoordinate("y", player2));
-            if (controllerGame.winnerPlayer(player2)){
-                break;
-            }
+            showPlayerMove(controllerGame, field, player2, view);
+            if (controllerGame.winnerPlayer(player2) || controllerGame.endGame()){break;}
         }
-        System.out.printf("Winner is '%s'", controllerGame.getWinnerPlayer());
+        checkGameWinner(controllerGame);
     }
 
-    public static void showPlayerMove(ControllerGame controllerGame, Player player, View view, int x, int y){
+    public static void checkGameWinner(ControllerGame controllerGame){
+        if (controllerGame.getWinnerPlayer() == "No Winner!!!"){
+            System.out.println(controllerGame.getWinnerPlayer());
+        } else {
+            System.out.printf("Winner is '%s'", controllerGame.getWinnerPlayer());
+        }
+    }
+
+    public static void showPlayerMove(ControllerGame controllerGame, Field field, Player player, View view){
+        int x = controllerGame.inputCoordinate("x", player);
+        int y = controllerGame.inputCoordinate("y", player);
         controllerGame.movePlayer(x, y, player);
         view.shoeField();
     }
