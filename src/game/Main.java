@@ -43,8 +43,6 @@ public class Main {
                 controllerGame.movePlayer(x, y, player);
                 view.shoeField();
                 validMove = true;
-            } else {
-                System.out.println("Invalid move. Please try again.");
             }
         }
     }

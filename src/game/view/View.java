@@ -11,8 +11,8 @@ public class View {
         System.out.println("----------------------------");
         System.out.println("Hello. This is a new game!!!");
         System.out.println("----------------------------");
-        System.out.printf("First player: %s\n", player1.getNAME());
-        System.out.printf("Second player: %s\n", player2.getNAME());
+        System.out.printf("First player: %s and his character is '%s'\n", player1.getNAME(), player1.getFIGURE());
+        System.out.printf("Second player: %s and his character is '%s'\n", player2.getNAME(), player2.getFIGURE());
         System.out.println("----------------------------");
         System.out.println();
     }
