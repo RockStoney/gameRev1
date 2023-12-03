@@ -5,6 +5,8 @@ import game.models.Field;
 import game.models.Player;
 import game.view.View;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         Field field = new Field(3);
@@ -14,15 +16,24 @@ public class Main {
         View view = new View(field, player1, player2);
         view.shoeField();
 
-        int x, y;
-        x = controllerGame.inputCoordinate("x", player1);
-        y = controllerGame.inputCoordinate("y", player1);
-        controllerGame.movePlayer(x, y, player1);
-        view.shoeField();
+        while (!controllerGame.endGame()){
+            showPlayerMove(controllerGame, player1,
+                    view, controllerGame.inputCoordinate("x", player1), controllerGame.inputCoordinate("y", player1));
+            if (controllerGame.winnerPlayer(player1)){
+                break;
+            }
 
-        x = controllerGame.inputCoordinate("x", player2);
-        y = controllerGame.inputCoordinate("y", player2);
-        controllerGame.movePlayer(x, y, player2);
+            showPlayerMove(controllerGame, player2,
+                    view, controllerGame.inputCoordinate("x", player2), controllerGame.inputCoordinate("y", player2));
+            if (controllerGame.winnerPlayer(player2)){
+                break;
+            }
+        }
+        System.out.printf("Winner is '%s'", controllerGame.getWinnerPlayer());
+    }
+
+    public static void showPlayerMove(ControllerGame controllerGame, Player player, View view, int x, int y){
+        controllerGame.movePlayer(x, y, player);
         view.shoeField();
     }
 }

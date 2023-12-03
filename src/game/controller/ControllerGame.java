@@ -56,62 +56,58 @@ public class ControllerGame {
         return true;
     }
 
-    //
-    private boolean winnerPlayer(Player player){
+    private boolean checkHorizontal(Player player) {
         int counter = 0;
-        // check horizontal
         for (int i = 0; i < field.getSIZE_FIELD(); i++) {
             for (int j = 0; j < field.getSIZE_FIELD(); j++) {
-                if (field.getCellField(i, j) == player.getFIGURE()){
+                if (field.getCellField(i, j) == player.getFIGURE()) {
                     counter++;
                 }
-                if (counter == field.getSIZE_FIELD()){
+                if (counter == field.getSIZE_FIELD()) {
                     return true;
                 }
             }
         }
-
-        // check vertical
-        for (int i = 0; i < field.getSIZE_FIELD(); i++) {
-            for (int j = 0; j < field.getSIZE_FIELD(); j++) {
-                if (field.getCellField(j, i) == player.getFIGURE()){
-                    counter++;
-                }
-                if (counter == field.getSIZE_FIELD()){
-                    return true;
-                }
-            }
-        }
-
-        // check horizontal
-        counter = 0;
-        for (int i = 0; i < field.getSIZE_FIELD(); i++) {
-            for (int j = 0; j < field.getSIZE_FIELD(); j++) {
-                if (field.getCellField(j, i) == player.getFIGURE()){
-                    counter++;
-                    break;
-                }
-            }
-        }
-        if (counter == field.getSIZE_FIELD()){
-            return true;
-        }
-
-        // check vertical
-        counter = 0;
-        for (int i = field.getSIZE_FIELD(); i >= 0; i--) {
-            for (int j = field.getSIZE_FIELD(); j >= 0; j--) {
-                if (field.getCellField(j, i) == player.getFIGURE()){
-                    counter++;
-                    break;
-                }
-            }
-        }
-        if (counter == field.getSIZE_FIELD()){
-            return true;
-        }
-
         return false;
+    }
+    private boolean checkVertical(Player player) {
+        int counter = 0;
+        for (int i = 0; i < field.getSIZE_FIELD(); i++) {
+            for (int j = 0; j < field.getSIZE_FIELD(); j++) {
+                if (field.getCellField(j, i) == player.getFIGURE()) {
+                    counter++;
+                }
+                if (counter == field.getSIZE_FIELD()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    private boolean checkDiagonal(Player player) {
+        int counter = 0;
+        for (int i = 0; i < field.getSIZE_FIELD(); i++) {
+            if (field.getCellField(i, i) == player.getFIGURE()){
+                counter++;
+            }
+        }
+        if (counter == field.getSIZE_FIELD()){
+            return true;
+        }
+
+        counter = 0;
+
+        for (int i = field.getSIZE_FIELD() - 1; i >= 0; i--) {
+            if (field.getCellField(i, field.getSIZE_FIELD() - 1 - i) == player.getFIGURE()){
+                counter++;
+            }
+        }
+        return counter == field.getSIZE_FIELD();
+    }
+
+    //
+    public boolean winnerPlayer(Player player) {
+        return checkHorizontal(player) || checkVertical(player) || checkDiagonal(player);
     }
 
     //
