@@ -1,7 +1,7 @@
 package game.models;
 
 public class Player {
-    private final String NAME;
+    private String NAME;
     private final String FIGURE;
 
     public Player(String NAME, String FIGURE) {
@@ -11,4 +11,7 @@ public class Player {
 
     public String getNAME() {return NAME;}
     public String getFIGURE() {return FIGURE;}
+    public void setNAME(String NAME) {
+        this.NAME = NAME;
+    }
 }
