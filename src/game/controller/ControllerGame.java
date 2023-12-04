@@ -154,4 +154,13 @@ public class ControllerGame {
             }
         } while (isNameTaken);
     }
+
+    // Checks winner
+    public static void checkGameWinner(ControllerGame controllerGame){
+        if (controllerGame.getWinnerPlayer() == "No Winner!!!"){
+            System.out.println(controllerGame.getWinnerPlayer());
+        } else {
+            System.out.printf("Winner is '%s'", controllerGame.getWinnerPlayer());
+        }
+    }
 }
