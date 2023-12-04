@@ -2,7 +2,6 @@ package game.controller;
 
 import game.models.Field;
 import game.models.Player;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
